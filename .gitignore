@@ -1,0 +1,13 @@
+/target
+*/target
+/.idea
+*/.idea
+/build
+*/build
+*.iml
+/.allure
+/allure-results
+/allure-report
+*/.allure
+*/allure-results
+*/allure-report
