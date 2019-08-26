@@ -42,17 +42,18 @@ public class FastSearchElement {
         return this;
     }
 
-    @Step("Навести курсок на продукт с номером '{number}'")
+    @Step("Навести курсор на продукт с номером '{number}'")
     public FastSearchElement moveMouseOnProductWithNumber(int number) {
-        new Actions(getWebDriver())
-                .moveToElement(listProductsInResult.get( ++number ))
+        new Actions(
+                getWebDriver())
+                .moveToElement(listProductsInResult.get( --number ))
                 .perform();
         return this;
     }
 
     @Step("Получить имя продукта с номером '{number}'")
     public String getProductName(int number) {
-        return listProductsInResult.get( ++number ).getText();
+        return listProductsInResult.get( --number ).getText();
     }
 
     @Step("Проверить что имя продукта с номером '{number}' совпадает с именем продукта в деталях")
