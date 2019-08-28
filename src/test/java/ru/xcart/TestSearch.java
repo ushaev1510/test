@@ -11,16 +11,17 @@ public class TestSearch extends BaseTest{
 
     private String url = "https://demostore.x-cart.com";
     private String SEARCH_TEXT = "apple";
+    private String CATEGORY = "Healthy Food & Snacks";
 
     @Test
     @Description("Search test-case 1")
     public void test1() {
         SearchPage searchPage = openSearchPage(url)
                 .fillSeatchField(SEARCH_TEXT);
-//  хотел запилить хорошую проверку но у вас каждый день меняется количество продуктов на демке по ссылке
-//        Assert.assertEquals(4,
-//                searchPage.getFastSearchElement().getCountProducts(),
-//                "Количество продуктов не соответствует ожидаемому");
+
+        Assert.assertEquals(3,
+                searchPage.getFastSearchElement().getCountProducts(),
+                "Количество продуктов не соответствует ожидаемому");
 
         searchPage
                 .getFastSearchElement()
@@ -35,9 +36,9 @@ public class TestSearch extends BaseTest{
         SearchPage searchPage = openSearchPage(url)
                 .fillSeatchField(SEARCH_TEXT);
 
-//        Assert.assertEquals(4,
-//                searchPage.getFastSearchElement().getCountProducts(),
-//                "Количество продуктов не соответствует ожидаемому");
+        Assert.assertEquals(3,
+                searchPage.getFastSearchElement().getCountProducts(),
+                "Количество продуктов не соответствует ожидаемому");
 
         String name = searchPage
                 .getFastSearchElement()
@@ -58,9 +59,9 @@ public class TestSearch extends BaseTest{
         SearchPage searchPage = openSearchPage(url)
                 .fillSeatchField(SEARCH_TEXT);
 
-//        Assert.assertEquals(4,
-//                searchPage.getFastSearchElement().getCountProducts(),
-//                "Количество продуктов не соответствует ожидаемому");
+        Assert.assertEquals(3,
+                searchPage.getFastSearchElement().getCountProducts(),
+                "Количество продуктов не соответствует ожидаемому");
 
         searchPage
                 .getFastSearchElement()
@@ -77,9 +78,9 @@ public class TestSearch extends BaseTest{
                 .fillSeatchField(SEARCH_TEXT)
                 .clickSearchButton();
 
-//        Assert.assertEquals(4,
-//                searchPage.getCountFindProducts(),
-//                "Количество продуктов не соответствует ожидаемому");
+        Assert.assertEquals(3,
+                searchPage.getCountFindProducts(),
+                "Количество продуктов не соответствует ожидаемому");
     }
 
     @Test
@@ -89,6 +90,34 @@ public class TestSearch extends BaseTest{
         SearchPage searchPage = openSearchPage(url)
                 .openAdvancedSearch()
                 .selectByDescriptionInOptionsSearch()
+                .fillSeatchField(SEARCH_TEXT)
+                .clickSearchButton();
+
+        Assert.assertEquals(1,
+                searchPage.getCountFindProducts(),
+                "Количество продуктов не соответствует ожидаемому");
+    }
+
+    @Test
+    @Description("Search test-case 6")
+    public void test6() {
+        SEARCH_TEXT = "qqqqqqqqq";
+        SearchPage searchPage = openSearchPage(url)
+                .fillSeatchField(SEARCH_TEXT)
+                .clickSearchButton();
+
+        Assert.assertEquals(0,
+                searchPage.getCountFindProducts(),
+                "Количество продуктов не соответствует ожидаемому");
+    }
+
+    @Test
+    @Description("Search test-case 7")
+    public void test7() {
+        SEARCH_TEXT = "Made with freshly";
+        SearchPage searchPage = openSearchPage(url)
+                .openAdvancedSearch()
+                .selectCategoryInOptionsSearch(CATEGORY)
                 .fillSeatchField(SEARCH_TEXT)
                 .clickSearchButton();
 

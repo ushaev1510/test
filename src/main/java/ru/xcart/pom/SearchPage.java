@@ -11,11 +11,14 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class SearchPage {
 
+    private SelenideElement blockProgressSearch = $(".wait-block-overlay");
+    private SelenideElement blockFindProducts = $(".products");
     private SelenideElement buttonSearch = $(".search-form-submit");
     private SelenideElement buttonOpenAdvancedSearch = $(By.linkText("More search options"));
     private SelenideElement checkboxByDescription = $("#by-descr");
     private SelenideElement inputSearch = $(".search-form input[type='text']");
     private SelenideElement rootElementSearch = $("#content .content .products-search-result");
+    private SelenideElement selectCategotyAdvancedSearch = $(".FixedSelect ");
 
     private ElementsCollection listFindProducts = $$(".products .product-cell");
 
@@ -41,11 +44,20 @@ public class SearchPage {
         return this;
     }
 
+    @Step("Выбрать категорию {categoty} в расширенном поиске")
+    public SearchPage selectCategoryInOptionsSearch(String category) {
+        selectCategotyAdvancedSearch.selectOptionContainingText(category);
+        return this;
+    }
+
     @Step("Клик по кнопке поиска")
     public SearchPage clickSearchButton() {
         buttonSearch.click();
         //честно пытался прикрутить проверку на ajax и angular, но время только потратил
         //плюс пытался отловить перерисовку блока, но тоже не всегда помогало
+        blockProgressSearch.shouldBe(Condition.exist);
+        blockProgressSearch.shouldNotBe(Condition.exist);
+        blockFindProducts.shouldBe(Condition.enabled);
         sleep(2000);
         return new SearchPage();
     }
